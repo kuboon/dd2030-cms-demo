@@ -20,6 +20,7 @@ cms.storage(
     client: new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") }),
     owner: "kuboon",
     repo: "dd2030-cms-demo",
+    path: "src",
   }),
 );
 
