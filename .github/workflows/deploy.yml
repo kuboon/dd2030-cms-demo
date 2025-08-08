@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy CMS
 on:
   push:
     branches: main

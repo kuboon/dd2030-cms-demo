@@ -14,8 +14,6 @@ const cms = lumeCMS({
   },
 });
 
-cms.git();
-
 cms.storage(
   "src",
   new GitHub({
