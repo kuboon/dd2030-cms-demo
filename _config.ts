@@ -1,4 +1,5 @@
 import lume from "lume/mod.ts";
+import basePath from "lume/plugins/base_path.ts";
 import date from "lume/plugins/date.ts";
 import esbuild from "lume/plugins/esbuild.ts";
 import favicon from "lume/plugins/favicon.ts";
@@ -25,6 +26,7 @@ const site = lume({
   markdown: { options: { breaks: true }, plugins: [], }
 });
 
+site.use(basePath());
 site.use(date());
 // site.use(esbuild());
 site.use(favicon());
