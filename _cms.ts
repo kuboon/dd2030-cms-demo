@@ -14,12 +14,14 @@ const cms = lumeCMS({
   },
 });
 
+cms.git();
+
 cms.storage(
   "src",
   new GitHub({
     client: new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") }),
-    owner: "fixme",
-    repo: "fixme",
+    owner: "kuboon",
+    repo: "dd2030-cms-demo",
   }),
 );
 

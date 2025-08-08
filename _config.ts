@@ -16,7 +16,6 @@ import tailwindcss from "lume/plugins/tailwindcss.ts";
 // import relations from "lume/plugins/relations.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 import source_maps from "lume/plugins/source_maps.ts";
-import transformImages from "lume/plugins/transform_images.ts";
 import vento from "lume/plugins/vento.ts";
 
 const site = lume({
@@ -49,7 +48,6 @@ site.use(tailwindcss());
 site.add("style/main.css")
 site.use(source_maps());
 site.use(picture());
-site.use(transformImages());
 site.add("/posts/files")
 site.use(inline());
 // site.use(prism());
