@@ -13,6 +13,12 @@ const cms = lumeCMS({
   },
 });
 
+const password = Deno.env.get("CMS_PASSWORD")!;
+
+cms.auth({
+  cms: password,
+});
+
 cms.storage(
   "src",
   GitHub.create("kuboon/dd2030-cms-demo/src", Deno.env.get("GITHUB_TOKEN")!),
