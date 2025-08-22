@@ -1,7 +1,6 @@
 import lumeCMS from "lume/cms/mod.ts";
 import GitHub from "lume/cms/storage/github.ts";
-// import Kv from "lume/cms/storage/kv.ts";
-import { Octokit } from "npm:octokit";
+import kvStorage from "./kvStorage.ts";
 
 const cms = lumeCMS({
   site: {
@@ -16,17 +15,10 @@ const cms = lumeCMS({
 
 cms.storage(
   "src",
-  new GitHub({
-    client: new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") }),
-    owner: "kuboon",
-    repo: "dd2030-cms-demo",
-    path: "src",
-  }),
+  GitHub.create("kuboon/dd2030-cms-demo/src", Deno.env.get("GITHUB_TOKEN")!),
 );
 
-// const kv = await Deno.openKv();
-
-// cms.storage("kv", new Kv({ kv }));
+cms.storage("kv", kvStorage);
 cms.upload("post_files", "src:posts/files");
 
 cms.document({
@@ -51,7 +43,7 @@ cms.document({
 });
 cms.collection({
   name: "posts",
-  store: "src:posts/*.md",
+  store: "kv:posts/*.md",
   documentName: (data) => {
     const date = new Date(data.published as number).toTemporalInstant().toZonedDateTimeISO("Asia/Tokyo").toPlainDate();
     return `${date}-${data.title}.md`;
