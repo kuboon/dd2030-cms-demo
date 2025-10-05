@@ -13,7 +13,7 @@ const cms = lumeCMS({
   },
 });
 
-const password = Deno.env.get("CMS_PASSWORD")!;
+const password = Deno.env.get("CMS_PASSWORD") || "test";
 
 cms.auth({
   cms: password,
@@ -44,16 +44,19 @@ cms.document({
           type: "markdown",
         },
       ],
-    }
+    },
   ],
 });
 cms.collection({
   name: "posts",
-  store: "kv:posts/*.md",
+  store: "kv:posts",
+  rename: "auto",
   documentName: (data) => {
-    const date = new Date(data.published as number).toTemporalInstant().toZonedDateTimeISO("Asia/Tokyo").toPlainDate();
-    return `${date}-${data.title}.md`;
+    const date = new Date(data.published as number).toTemporalInstant()
+      .toZonedDateTimeISO("Asia/Tokyo").toPlainDate();
+    return `${date}-${data.title}`;
   },
+  documentLabel: (name: string) => name,
   fields: [
     {
       name: "title",
